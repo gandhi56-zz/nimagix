@@ -1,8 +1,12 @@
 use bevy::prelude::*;
 
 mod screens;
+mod gamedata;
+mod gamestate;
 
 use crate::screens::ScreensPlugin;
+use crate::gamedata::GameData;
+use crate::gamestate::GameState;
 
 fn main() {
     App::build()
@@ -13,9 +17,13 @@ fn main() {
             ..Default::default()
         })
         .insert_resource(ClearColor(Color::rgb(0.61, 0.72, 0.96)))
+        .insert_resource(GameData{
+            game_state: GameState::Menu,
+            score: 0,
+        })
         .add_plugins(DefaultPlugins)
-        .add_plugin(ScreensPlugin)
         .add_startup_system(setup.system())
+        .add_plugin(ScreensPlugin)
         .run();
 }
 
