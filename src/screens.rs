@@ -7,7 +7,8 @@ pub struct ScreensPlugin;
 
 impl Plugin for ScreensPlugin{
     fn build(&self, app: &mut AppBuilder) {
-        app.add_startup_system(setup.system());
+        app.add_startup_system(setup.system())
+            .run();
     }
 }
 
@@ -24,11 +25,19 @@ fn setup(
     commands
         .spawn_bundle(SpriteBundle{
             material: materials.add(game_title_texture.into()),
+            transform: Transform{
+                translation: Vec3::new(0.0, 200.0, 0.0),
+                ..Default::default()
+            },
             ..Default::default()
         })
         .insert(StartScreen);
     commands
         .spawn_bundle(TextBundle {
+            transform: Transform{
+                translation: Vec3::new(100.0, 200.0, 0.0),
+                ..Default::default()
+            },
             text: Text::with_section(
                 "Press SPACE to start game!",
                 TextStyle {
@@ -36,7 +45,6 @@ fn setup(
                     font_size: 40.0,
                     color: Color::WHITE,
                 },
-                // Note: You can use `Default::default()` in place of the `TextAlignment`
                 TextAlignment {
                     horizontal: HorizontalAlign::Center,
                     ..Default::default()

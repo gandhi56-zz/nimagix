@@ -16,7 +16,7 @@ fn main() {
             height: 700.0,
             ..Default::default()
         })
-        .insert_resource(ClearColor(Color::rgb(0.61, 0.72, 0.96)))
+        .insert_resource(ClearColor(Color::rgb(0.51, 0.62, 0.86)))
         .insert_resource(GameData{
             game_state: GameState::Menu,
             score: 0,
