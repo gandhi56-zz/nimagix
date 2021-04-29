@@ -1,5 +1,9 @@
 use bevy::prelude::*;
 
+mod screens;
+
+use crate::screens::ScreensPlugin;
+
 fn main() {
     App::build()
         .insert_resource(WindowDescriptor{
@@ -8,8 +12,9 @@ fn main() {
             height: 700.0,
             ..Default::default()
         })
-        .insert_resource(ClearColor(Color::rgb(0.04, 0.04, 0.04)))
+        .insert_resource(ClearColor(Color::rgb(0.61, 0.72, 0.96)))
         .add_plugins(DefaultPlugins)
+        .add_plugin(ScreensPlugin)
         .add_startup_system(setup.system())
         .run();
 }
