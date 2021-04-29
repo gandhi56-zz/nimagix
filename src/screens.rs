@@ -3,12 +3,12 @@ use bevy::sprite::entity::SpriteBundle;
 use bevy::prelude::*;
 
 pub struct StartScreen;
+pub struct PlayingScreen;
 pub struct ScreensPlugin;
 
 impl Plugin for ScreensPlugin{
     fn build(&self, app: &mut AppBuilder) {
-        app.add_startup_system(setup.system())
-            .run();
+        app.add_startup_system(setup.system());
     }
 }
 
@@ -20,7 +20,7 @@ fn setup(
     // load screen assets here
     let game_title_texture = asset_server.load("graphics/title_screen.png");
 
-    // render start screen
+    // render start screen ------------------------------------------------------ //
     commands.spawn_bundle(UiCameraBundle::default());
     commands
         .spawn_bundle(SpriteBundle{
@@ -53,4 +53,7 @@ fn setup(
             ..Default::default()
         })
         .insert(StartScreen);
+
+    commands.spawn()
+        .insert(PlayingScreen);
 }

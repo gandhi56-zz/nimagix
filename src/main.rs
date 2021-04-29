@@ -3,13 +3,24 @@ use bevy::prelude::*;
 mod screens;
 mod gamedata;
 mod gamestate;
+mod ground;
 
+use crate::ground::GroundPlugin;
+use crate::gamestate::*;
 use crate::screens::ScreensPlugin;
 use crate::gamedata::GameData;
-use crate::gamestate::GameState;
 
 fn main() {
     App::build()
+        // insert all plugins
+        .add_plugins(DefaultPlugins)
+        .add_plugin(GroundPlugin)
+        .add_plugin(ScreensPlugin)
+        .add_plugin(GameStatePlugin)
+        
+        .add_startup_system(setup.system())
+        
+        // insert resources
         .insert_resource(WindowDescriptor{
             title: "Nimagix".to_string(),
             width: 900.0,
@@ -18,12 +29,9 @@ fn main() {
         })
         .insert_resource(ClearColor(Color::rgb(0.51, 0.62, 0.86)))
         .insert_resource(GameData{
-            game_state: GameState::Menu,
+            state: GameState::Menu,
             score: 0,
         })
-        .add_plugins(DefaultPlugins)
-        .add_startup_system(setup.system())
-        .add_plugin(ScreensPlugin)
         .run();
 }
 

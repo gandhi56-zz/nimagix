@@ -1,7 +1,8 @@
 use crate::gamestate;
 use gamestate::GameState;
 
+#[derive(Clone, Eq, PartialEq, Debug, Hash)]
 pub struct GameData {
-    pub game_state: GameState,
+    pub state: GameState,
     pub score: i32,
 }
