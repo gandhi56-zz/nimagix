@@ -1,3 +1,4 @@
+use bevy::window::WindowResizeConstraints;
 use bevy::prelude::*;
 
 mod screens;
@@ -28,6 +29,13 @@ fn main() {
             title: "Nimagix".to_string(),
             width: SCREEN_WIDTH,
             height: SCREEN_HEIGHT,
+            resizable: false,
+            resize_constraints: WindowResizeConstraints{
+                min_width: SCREEN_WIDTH,
+                max_width: SCREEN_WIDTH,
+                min_height: SCREEN_HEIGHT,
+                max_height: SCREEN_HEIGHT,
+            },
             ..Default::default()
         })
         .insert_resource(ClearColor(Color::rgb(0.51, 0.62, 0.86)))

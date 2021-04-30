@@ -1,3 +1,4 @@
+use bevy::sprite::TextureAtlasBuilder;
 use crate::SCREEN_HEIGHT;
 use crate::SCREEN_WIDTH;
 use bevy::window::WindowResized;
@@ -12,28 +13,37 @@ impl Plugin for GroundPlugin{
     }
 }
 
+// 34 x 28, tile size 8. 
+
 fn setup(
     mut commands: Commands,
-    asset_server: Res<AssetServer>,
+    assets: Res<AssetServer>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ){
-    // spawn a 2D camera
+    let tile_size = Vec2::splat(8.);
+    let tile_scale = Vec2::splat(6.);
+    let texture_handle = assets.load("graphics/tile_set.png");
+    let texture_atlas = TextureAtlas::from_grid(texture_handle, tile_size, 34, 28);
+    let texture_atlas_handle = texture_atlases.add(texture_atlas);
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
 
-    // spawn a tilemap of bricks for ground
-    let mut xOffset: f32 = 0.0;
-    let tile_size = 8.;
-    let texture_handle = asset_server.load("graphics/tile_set.png");
-    let texture_atlas = TextureAtlas::from_grid(texture_handle, 
-        Vec2::new(tile_size, tile_size), 34, 28);
-    let texture_atlas_handle = texture_atlases.add(texture_atlas);
-    // let vendor_idx = texture_atlas.get_texture_index(&texture_handle).unwrap();
-    
-    // for y in 0..(SCREEN_HEIGHT / tile_size - 1.0) as u32{
-    //     for x in 0..(SCREEN_WIDTH / tile_size - 1.0) as u32{
-    //         let pos = Vec3::new((x as f32) * tile_size, (y as f32) * tile_size, 0.0);
-            
-    //     }
-    // }
-
+    let start_pos = Vec2::new(-SCREEN_WIDTH, -500. + tile_size.y);
+    let mut pos = Vec2::new(start_pos.x, start_pos.y);
+    while pos.y + (tile_size.y * tile_scale.y) <= -200.0{
+        pos.x = start_pos.x;
+        while pos.x + (tile_size.x * tile_scale.x) <= SCREEN_WIDTH{
+            commands.spawn_bundle(SpriteSheetBundle {
+                texture_atlas: texture_atlas_handle.clone(),
+                transform: Transform{
+                    translation: Vec3::new(pos.x, pos.y, 0.0),
+                    scale: tile_scale.extend(0.0),
+                    ..Default::default()
+                },
+                ..Default::default()
+            });
+            pos.x += tile_size.x * tile_scale.x;
+        }
+        pos.y += tile_scale.y * tile_size.y;
+    }
 }
