@@ -10,6 +10,9 @@ use crate::gamestate::*;
 use crate::screens::ScreensPlugin;
 use crate::gamedata::GameData;
 
+const SCREEN_WIDTH: f32 = 900.0;
+const SCREEN_HEIGHT: f32 = 700.0;
+
 fn main() {
     App::build()
         // insert all plugins
@@ -23,8 +26,8 @@ fn main() {
         // insert resources
         .insert_resource(WindowDescriptor{
             title: "Nimagix".to_string(),
-            width: 900.0,
-            height: 700.0,
+            width: SCREEN_WIDTH,
+            height: SCREEN_HEIGHT,
             ..Default::default()
         })
         .insert_resource(ClearColor(Color::rgb(0.51, 0.62, 0.86)))

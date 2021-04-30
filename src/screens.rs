@@ -32,28 +32,21 @@ fn setup(
             ..Default::default()
         })
         .insert(StartScreen);
-    commands
-        .spawn_bundle(TextBundle {
-            transform: Transform{
-                translation: Vec3::new(100.0, 200.0, 0.0),
-                ..Default::default()
-            },
-            text: Text::with_section(
-                "Press SPACE to start game!",
-                TextStyle {
-                    font: asset_server.load("fonts/Fixedsys500c.ttf"),
-                    font_size: 40.0,
-                    color: Color::WHITE,
-                },
-                TextAlignment {
-                    horizontal: HorizontalAlign::Center,
-                    ..Default::default()
-                },
-            ),
-            ..Default::default()
-        })
-        .insert(StartScreen);
 
-    commands.spawn()
-        .insert(PlayingScreen);
+    commands.spawn_bundle(Text2dBundle{
+        text: Text::with_section(
+            "Press SPACE to start game!",
+            TextStyle{
+                font: asset_server.load("fonts/Fixedsys500c.ttf"),
+                font_size: 40.0,
+                color: Color::WHITE,
+            },
+            TextAlignment{
+                vertical: VerticalAlign::Center,
+                horizontal: HorizontalAlign::Center,
+            },
+        ),
+        ..Default::default()
+    })
+    .insert(StartScreen);
 }
