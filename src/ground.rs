@@ -18,7 +18,6 @@ impl Plugin for GroundPlugin{
 fn setup(
     mut commands: Commands,
     assets: Res<AssetServer>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ){
     let tile_size = Vec2::splat(8.);

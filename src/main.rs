@@ -1,24 +1,27 @@
-use bevy::window::WindowResizeConstraints;
+use crate::player::PlayerPlugin;
+use bevy::window::WindowMode;
 use bevy::prelude::*;
 
 mod screens;
 mod gamedata;
 mod gamestate;
 mod ground;
+mod player;
 
 use crate::ground::GroundPlugin;
 use crate::gamestate::*;
 use crate::screens::ScreensPlugin;
 use crate::gamedata::GameData;
 
-const SCREEN_WIDTH: f32 = 900.0;
-const SCREEN_HEIGHT: f32 = 700.0;
+const SCREEN_WIDTH: f32 = 1280.0;
+const SCREEN_HEIGHT: f32 = 720.0;
 
 fn main() {
     App::build()
         // insert all plugins
         .add_plugins(DefaultPlugins)
         .add_plugin(GroundPlugin)
+        .add_plugin(PlayerPlugin)
         .add_plugin(ScreensPlugin)
         .add_plugin(GameStatePlugin)
         
@@ -26,16 +29,12 @@ fn main() {
         
         // insert resources
         .insert_resource(WindowDescriptor{
+            vsync: true,
+            resizable: false,
+            mode: WindowMode::BorderlessFullscreen,
             title: "Nimagix".to_string(),
             width: SCREEN_WIDTH,
             height: SCREEN_HEIGHT,
-            resizable: false,
-            resize_constraints: WindowResizeConstraints{
-                min_width: SCREEN_WIDTH,
-                max_width: SCREEN_WIDTH,
-                min_height: SCREEN_HEIGHT,
-                max_height: SCREEN_HEIGHT,
-            },
             ..Default::default()
         })
         .insert_resource(ClearColor(Color::rgb(0.51, 0.62, 0.86)))
