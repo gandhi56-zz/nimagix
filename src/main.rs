@@ -1,3 +1,4 @@
+use crate::player::Player;
 use crate::player::PlayerPlugin;
 use bevy::window::WindowMode;
 use bevy::prelude::*;
@@ -42,6 +43,7 @@ fn main() {
             state: GameState::Menu,
             score: 0,
         })
+        .insert_resource(Player::new())
         .run();
 }
 
