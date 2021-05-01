@@ -1,6 +1,5 @@
 use bevy::prelude::*;
 
-struct Name(String);
 pub struct Player{
     state: PlayerState,
     frame_idx: usize,
