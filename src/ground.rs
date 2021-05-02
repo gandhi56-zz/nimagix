@@ -1,8 +1,5 @@
-use bevy::sprite::TextureAtlasBuilder;
-use crate::SCREEN_HEIGHT;
+
 use crate::SCREEN_WIDTH;
-use bevy::window::WindowResized;
-use bevy::app::Events;
 use bevy::prelude::*;
 
 pub struct GroundPlugin;
@@ -12,8 +9,6 @@ impl Plugin for GroundPlugin{
         app.add_startup_system(setup.system());
     }
 }
-
-// 34 x 28, tile size 8. 
 
 fn setup(
     mut commands: Commands,

@@ -3,7 +3,6 @@ use bevy::sprite::entity::SpriteBundle;
 use bevy::prelude::*;
 
 pub struct StartScreen;
-pub struct PlayingScreen;
 pub struct ScreensPlugin;
 
 impl Plugin for ScreensPlugin{

@@ -1,5 +1,4 @@
-use crate::player::Player;
-use crate::player::PlayerPlugin;
+use crate::player::{PlayerPlugin, Player};
 use bevy::window::WindowMode;
 use bevy::prelude::*;
 
@@ -49,7 +48,6 @@ fn main() {
 
 fn setup(
     mut commands: Commands,
-    mut materials: ResMut<Assets<ColorMaterial>>
 ){
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
 }
